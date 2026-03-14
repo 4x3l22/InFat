@@ -1,0 +1,53 @@
+@if (loading) {
+  <div id="loading" class="state-msg">Cargando...</div>
+} @else if (hasError) {
+  <div id="error" class="state-msg">Error al cargar los clientes</div>
+} @else {
+  <div class="container">
+    <div class="summary-cards">
+      <div class="card pending">
+        <span class="label">Pendientes</span>
+        <span class="count" id="count-pending">{{ countPending }}</span>
+      </div>
+      <div class="card accepted">
+        <span class="label">Aprobados</span>
+        <span class="count" id="count-accepted">{{ countAccepted }}</span>
+      </div>
+      <div class="card rejected">
+        <span class="label">Rechazados</span>
+        <span class="count" id="count-rejected">{{ countRejected }}</span>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <label for="filter">Filtrar por estado:</label>
+      <select id="filter" class="filter-select" [(ngModel)]="selectedFilter" (ngModelChange)="onFilterChange()">
+        <option value="ALL">Todos</option>
+        <option value="PENDING">Pendientes</option>
+        <option value="ACCEPTED">Aprobados</option>
+        <option value="REJECTED">Rechazados</option>
+      </select>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (customer of filteredCustomers; track customer.id) {
+            <tr>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.last_name }}</td>
+              <td>{{ customer.email }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}
