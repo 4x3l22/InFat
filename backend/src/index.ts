@@ -1,7 +1,10 @@
-import { app } from "./infrastructure/server";
+import app from "./infrastructure/server";
 
-const PORT = 3000;
+const PORT = 3030;
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+Bun.serve({
+  port: PORT,
+  fetch: app.fetch,
 });
+
+console.log(`Server running on http://localhost:${PORT}`);
